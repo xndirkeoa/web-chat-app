@@ -1,15 +1,20 @@
-import React from 'react'
+// import React,{useState} from 'react';
 import './Mystyle.css';
 import Sidebar from './Sidebar';
-import Workarea  from './Workarea';
+import { Outlet } from 'react-router-dom';
+
 
 function Maincontainer() {
-  return (
-    <div className='main-container'>
+  
+  return(
+    <div className="main-container">
      <Sidebar />
-     <Workarea /> 
+     <Outlet />
+    {/* <Welcome/> */}
+    {/* <CreateGroups/> */}
+    {/* <Workarea/>  */}
+    {/* <User_groups/> */}
     </div>
   );
 }
-
-export default Maincontainer
+export default Maincontainer;
