@@ -1,8 +1,8 @@
 import React from 'react';
 import "./App.css";
-import Maincontainer from './Components/Maincontainer'; 
+import Maincontainer from './Components/Maincontainer';
 import Login from './Components/Login';
-import { Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Workarea from './Components/Workarea';
 import CreateGroups from './Components/CreateGroups';
 import Welcome from './Components/Welcome';
@@ -14,18 +14,19 @@ import Groups from './Components/Groups';
 function App() {
   return (
     <div className="App">
-          {/* <Maincontainer /> */}
-          {/* <Login/> */}
-          <Routes>
-               <Route path="/" element={<Login />} />
-               <Route path="app" element={<Maincontainer />}>
-                   <Route path="welcome" element={<Welcome/>}></Route>
-                   <Route path="chat" element={<Workarea/>}></Route>
-                   <Route path="users" element={<Users/>}></Route>
-                   <Route path="groups" element={<Groups/>}></Route> 
-                   <Route path="create-groups" element={<CreateGroups/>}></Route>
-               </Route>
-          </Routes> 
+      {/* <Maincontainer /> */}
+      {/* <Login /> */}
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Login />} />
+          <Route path="/app" element={<Maincontainer />} />
+          <Route path="/welcome" element={<Welcome />} />
+          <Route path="/chat" element={<Workarea />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/groups" element={<Groups />} />
+          <Route path="/create-groups" element={<CreateGroups />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
