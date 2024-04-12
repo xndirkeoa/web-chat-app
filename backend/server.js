@@ -2,7 +2,6 @@ const dotenv = require("dotenv");
 const express = require("express");
 const {chats} = require("./data/data");
 
-
 const app = express();
 dotenv.config();
 
