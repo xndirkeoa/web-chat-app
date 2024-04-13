@@ -8,6 +8,9 @@ import CreateGroups from './Components/CreateGroups';
 import Welcome from './Components/Welcome';
 import Users from './Components/Users';
 import Groups from './Components/Groups';
+// import Signup from './Components/Signup';
+
+
 
 
 
@@ -16,17 +19,18 @@ function App() {
     <div className="App">
       {/* <Maincontainer /> */}
       {/* <Login /> */}
-      <Router>
-        <Routes>
-          <Route exact path="/" element={<Login />} />
-          <Route path="/app" element={<Maincontainer />} />
-          <Route path="/welcome" element={<Welcome />} />
-          <Route path="/chat" element={<Workarea />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/groups" element={<Groups />} />
-          <Route path="/create-groups" element={<CreateGroups />} />
-        </Routes>
-      </Router>
+
+     <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="app" element={<Maincontainer />}>
+          <Route path="welcome" element={<Welcome />}></Route>
+          <Route path="chat" element={<Workarea />}></Route>
+          <Route path="users" element={<Users />}></Route>
+          <Route path="groups" element={<Groups />}></Route>
+          {/* <Route path="Signup" element={< Signup />}></Route> */}
+          <Route path="creategroups" element={<CreateGroups />}></Route>
+        </Route>
+      </Routes>
     </div>
   );
 }

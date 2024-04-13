@@ -1,10 +1,10 @@
 .dark{
-    background-color: #2d3941;
-    color: lightgray;
+    background-color: #2d3941 !important;
+    color: lightgray !important; 
 }
 .icon{
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.25rem !important;
+    height: 1.25rem !important;
 
 }
 .main-container{
@@ -95,6 +95,13 @@ input:focus{
     margin: 5px;
     border-radius:10px ;
     box-sizing: border-box;
+    transition-duration:0.5s;
+}
+.conversation-container:hover{
+    background-color: #d9d9d9;
+}
+.conversation-container:active{
+    background-color: white;
 }
 .inbox {
     outline-width: 0;
@@ -289,6 +296,11 @@ input:focus{
     margin: 10px;
     transition-duration: 0.5s;
 }
+.other-icons{
+    display: flex;
+    flex: 1;
+    justify-content: space-evenly;
+}
 .list-tem:hover{
     background-color: rgb(226, 226, 226);
 } 
@@ -330,4 +342,38 @@ input:focus{
     align-items: center;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 
+}
+@media only screen and (max-width:40em){
+    .search{
+        display: none;
+    }
+    .sb-conversations{
+        display: none;
+    }
+    .header{
+        flex-direction: coloumn;
+        flex: 1;
+        width: min-content;
+    }
+    .other-icons{
+        flex-direction: column;
+    }
+    .workarea-container{
+        flex: 1;
+    }
+    .sidebar-container{
+        flex: 0;
+    }
+    .main-container{
+        height: 100vh;
+        width: 100vw;
+    }
+    .login-text{
+        font-size:25px;
+    }
+    .acc-text{
+    text-align: start;
+        font-weight: bolder;
+        font-size: 30px;
+    }
 }
