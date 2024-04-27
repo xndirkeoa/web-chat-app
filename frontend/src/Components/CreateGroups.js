@@ -24,7 +24,6 @@ function Groups() {
     console.log("User not Authenticated");
     nav("/");
   }
-
   const user = userData.data;
   useEffect(() => {
     console.log("Users refreshed : ", user.token);
