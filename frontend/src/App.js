@@ -20,14 +20,13 @@ function App() {
       {/* <Maincontainer /> */}
       {/* <Login /> */}
 
-     <Routes>
+      <Routes>
         <Route path="/" element={<Login />} />
         <Route path="app" element={<Maincontainer />}>
           <Route path="welcome" element={<Welcome />}></Route>
-          <Route path="chat" element={<Workarea />}></Route>
+          <Route path="chat/:id" element={<Workarea />}></Route>
           <Route path="users" element={<Users />}></Route>
           <Route path="groups" element={<Groups />}></Route>
-          {/* <Route path="Signup" element={< Signup />}></Route> */}
           <Route path="creategroups" element={<CreateGroups />}></Route>
         </Route>
       </Routes>

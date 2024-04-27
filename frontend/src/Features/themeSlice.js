@@ -6,7 +6,7 @@ export const themeSlice = createSlice({
   reducers: {
     toggleTheme: (state) => {
       // Use Immer's produce function to mutate the state
-      return !state;
+      return (state = !state);
     },
   },
 });

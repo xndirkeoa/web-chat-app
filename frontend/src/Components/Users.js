@@ -1,86 +1,117 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./Mystyle.css";
+import SearchIcon from "@mui/icons-material/Search";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { refreshSidebarFun } from "../Features/refreshSidebar";
+import { myContext } from "./Maincontainer";
 import logo from "../Images/live-chat_512px.png";
 import { IconButton } from '@mui/material';
-import  SearchIcon  from '@mui/icons-material/Search';
-import { useSelector} from "react-redux";
-import { AnimatePresence,motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 
 
 function Users() {
-  const lightTheme = useSelector((state) => state.themeKey);
+  const { refresh, setRefresh } = useContext(myContext);
+  const [users, setUsers] = useState([]);
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  // console.log("Data from LocalStorage : ", userData);
+  const nav = useNavigate();
+  const dispatch = useDispatch();
+  const lightTheme = useSelector((state) => {
+    return state.themeKey;
+  });
+  if (!userData) {
+    console.log("User Not Authenticated");
+    nav(-1);
+  }
+  useEffect(() => {
+    console.log("User Refreshed");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userData.data.token}`,
+      },
+    };
+    axios.get("http://localhost:5000/user/fetchUsers", config).then((data) => {
+      console.log("User Data refreshed in user panel");
+      setUsers(data.data);
+    });
+  }, [refresh]);
   return (
     <AnimatePresence>
       <motion.div
-      initial = {{opacity:0,scale:0}}
-      animate={{opacity:1,scale:1}}
-      exit={{opacity:0,scale:0}}
-      transition={{
-        ease:"anticipate",
-        duration:"0.3",
-      }}
-       className="list-container">
-        <motion.div className={"ug-header" + (lightTheme ? "": " dark")}>
-        <img
-        src={logo}
-        style={{height:"2rem",width:"2rem"}}
-        alt="logo"
-        />
-        <p className={"ug-title" + (lightTheme ? "": " dark")}>Online Users</p>
-        </motion.div>
-        <motion.div className={"sb-search" + (lightTheme ? "": " dark")}>
-            <IconButton>
-                <SearchIcon/>
-            </IconButton>
-            <input placeholder="Search"
-             className={"search-box" + (lightTheme ? "": " dark")}/>
-         </motion.div>
-
-        <motion.div className='ug-list'>
-
-           <motion.div className={"list-tem" + (lightTheme ? "": " dark")}>
-            <p className='con-icon'>T</p>
-            <p className='con-title'>Test user</p>
-            </motion.div>
-        
-            <motion.div className={"list-tem" + (lightTheme ? "": " dark")}>
-            <p className='con-icon'>T</p>
-            <p className='con-title'>Test user</p>
-            </motion.div>
-
-
-            <motion.div className={"list-tem" + (lightTheme ? "": " dark")}>
-            <p className='con-icon'>T</p>
-            <p className='con-title'>Test user</p>
-             </motion.div>
-
-
-            <motion.div className={"list-tem" + (lightTheme ? "": " dark")}>
-            <p className='con-icon'>T</p>
-            <p className='con-title'>Test user</p>
-            </motion.div>
-
-
-            <motion.div className={"list-tem" + (lightTheme ? "": " dark")}>
-            <p className='con-icon'>T</p>
-            <p className='con-title'>Test user</p>
-            </motion.div>
-
-
-            <motion.div className={"list-tem" + (lightTheme ? "": " dark")}>
-            <p className='con-icon'>T</p>
-            <p className='con-title'>Test user</p>
-            </motion.div>
-
-
-            <motion.div className={"list-tem" + (lightTheme ? "": " dark")}>
-            <p className='con-icon'>T</p>
-            <p className='con-title'>Test user</p>
-            </motion.div>
-        </motion.div>
-    </motion.div>
-    </AnimatePresence>
-  ); 
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0 }}
+        transition={{
+          ease: "anticipate",
+          duration: "0.3",
+        }}
+        className="list-container">
+        <div className={"ug-header" + (lightTheme ? "" : " dark")}>
+          <img
+            src={logo}
+            style={{ height: "2rem", width: "2rem" }}
+            alt="logo"
+          />
+          <p className={"ug-title" + (lightTheme ? "" : " dark")}>
+            Online Users
+          </p>
+          <IconButton
+            className={"icon" + (lightTheme ? "" : "Dark")}
+            onClick={() => {
+              setRefresh(!refresh);
+            }}
+          >
+            <RefreshIcon />
+          </IconButton>
+        </div>
+        <div
+          className={"sb-search" + (lightTheme ? "" : "dark")}>
+          <IconButton className={"icon" + (lightTheme ? "" : "dark")}>
+            <SearchIcon />
+          </IconButton>
+          <input
+            placeholder="Search"
+            className={"search-box" + (lightTheme ? "" : " dark")}
+          />
+        </div>
+        <div className='ug-list'>
+          {users.map((user, index) => {
+            return (
+              <motion.div
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
+                className={"list-tem" + (lightTheme ? "" : "dark")}
+                key={index}
+                onClick={() => {
+                  console.log("Creating chat with", user.name);
+                  const config = {
+                    headers: {
+                      Authorization: `Bearer ${userData.data.token}`,
+                    },
+                  };
+                  axios.post("http://localhost:5000/chat/",
+                    {
+                      userId: user._id,
+                    },
+                    config
+                  );
+                  dispatch(refreshSidebarFun());
+                }}
+              >
+                <p className={"con-icon" + (lightTheme ? "" : "dark")}>T</p>
+                <p className={"con-icon" + (lightTheme ? "" : "dark")}>
+                  {user.name}
+                </p>
+              </motion.div>
+            );
+          })}
+        </div>
+      </motion.div>
+    </AnimatePresence >
+  );
 }
 export default Users
