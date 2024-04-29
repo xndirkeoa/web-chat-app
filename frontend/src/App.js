@@ -8,18 +8,12 @@ import CreateGroups from './Components/CreateGroups';
 import Welcome from './Components/Welcome';
 import Users from './Components/Users';
 import Groups from './Components/Groups';
-// import Signup from './Components/Signup';
-
-
-
-
 
 function App() {
   return (
     <div className="App">
       {/* <Maincontainer /> */}
       {/* <Login /> */}
-
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="app" element={<Maincontainer />}>

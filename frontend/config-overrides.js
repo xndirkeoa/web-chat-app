@@ -17,7 +17,7 @@
 
 //     return config;
 //   };
-  
+
 
 const webpack = require('webpack');
 // In your webpack configuration or entry file
@@ -33,22 +33,22 @@ module.exports = function override(config, env) {
     config.resolve = {
         ...config.resolve,
         fallback: {
-          ...config.resolve.fallback,
-          zlib: require.resolve('browserify-zlib'),
-          querystring: require.resolve("querystring-es3"),
-          assert: require.resolve("assert"),
-          buffer: require.resolve("buffer"),
-          stream: require.resolve("stream-browserify"),
-          util: require.resolve("util"),
-          path: require.resolve("path-browserify"),
-          crypto: require.resolve("crypto-browserify"),
-          http: require.resolve("stream-http"),
-          vm: require.resolve("vm-browserify"), 
-          process: require.resolve("process/browser"), 
-          fs: false,
-          net: false,
-          async_hooks: false
+            ...config.resolve.fallback,
+            zlib: require.resolve('browserify-zlib'),
+            querystring: require.resolve("querystring-es3"),
+            assert: require.resolve("assert"),
+            buffer: require.resolve("buffer"),
+            stream: require.resolve("stream-browserify"),
+            util: require.resolve("util"),
+            path: require.resolve("path-browserify"),
+            crypto: require.resolve("crypto-browserify"),
+            http: require.resolve("stream-http"),
+            vm: require.resolve("vm-browserify"),
+            process: require.resolve("process/browser"),
+            fs: false,
+            net: false,
+            async_hooks: false
         },
-      };
+    };
     return config;
 };
